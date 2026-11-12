@@ -2,6 +2,8 @@
 
 **Your pantry. Tonight's possibilities.**
 
+[Open the live app](https://pantryplot.vercel.app)
+
 An ingredient-based recipe app built with React and a small Node.js API. Add what you have, request a recipe, and read the result in a calm Oat & Terracotta interface.
 
 ![Pantryplot home screen](docs/images/pantryplot-home.jpg)
@@ -169,6 +171,8 @@ The React frontend and recipe API run in one Vercel project and share a domain. 
 The function has a 60-second hosting limit and a 30-second provider timeout. The API accepts JSON bodies up to 16 KiB and limits recipes to 2,048 output tokens. Per-request limits do not replace a request-rate limit.
 
 Vercel Hobby is for personal, non-commercial projects and has usage limits. See the official [Hobby plan](https://vercel.com/docs/plans/hobby), [Node.js functions](https://vercel.com/docs/functions/runtimes/node-js) and [firewall rate-limit documentation](https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting).
+
+The public demo limits recipe submissions to 5 requests per 60-second fixed window per IP address. Further requests receive HTTP 429; the frontend asks the visitor to wait and try again. Page views and the health endpoint are outside this rule.
 
 ## Current limitations
 

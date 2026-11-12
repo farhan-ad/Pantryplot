@@ -8,9 +8,15 @@ export async function getRecipeFromGroq(ingredients) {
 
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
-    throw new Error(data.error || "Could not get a recipe. Please try again later.");
+    const fallbackMessage = response.status === 429
+      ? "Too many recipe requests. Wait a minute and try again."
+      : "Could not get a recipe. Please try again later.";
+    const message = typeof data?.error === "string" && data.error.trim()
+      ? data.error
+      : fallbackMessage;
+    throw new Error(message);
   }
-  if (typeof data.recipe !== "string" || !data.recipe.trim()) {
+  if (typeof data?.recipe !== "string" || !data.recipe.trim()) {
     throw new Error("The recipe service returned no recipe.");
   }
   return data.recipe;
